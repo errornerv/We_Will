@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پایمونک</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to the external CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
+    <link href="https://cdn.fontcdn.ir/font/iran-sans/iran-sans.css" rel="stylesheet"> <!-- Link to Vazir font -->
+</head>
+<body>
+<!-- Header -->
+<div class="header">
+    <div class="right">
+        <a href="#" id="purchase-history-button" class="btn-purchase-history">سوابق خرید</a>
+
+        <a href="#">ویویل‌کتاب</a>
+    </div>
+    <div class="center">
+        <span class="title">پایمونک</span>
+    </div>
+    <div class="left">
+        <i class="fas fa-shopping-cart icon" id="cart-button"> سبد خرید</i>
+        <button id="login-button" class="btn-primary">ثبت‌نام / ورود</button>
+        <button id="logout-button" class="btn-primary" style="display: none;">خروج</button> <!-- Hidden by default -->
+
+        <span id="welcome-message" style="display: none; margin-left: 10px; font-weight: bold;">خوش آمدی، <span id="username-display"></span></span> <!-- Welcome message -->
+    </div>
+</div>
+
+<!-- Login Prompt Popup -->
+<div class="popup" id="login-prompt-popup" style="display: none;">
+    <div class="popup-content">
+        <span class="close-btn" id="close-login-prompt-popup" onclick="closeLoginPromptPopup()">×</span>
+        <h2>لطفاً وارد شوید</h2>
+        <p>برای افزودن محصول به سبد خرید، ابتدا وارد حساب کاربری خود شوید.</p>
+        <button class="btn-primary" onclick="openLoginPopup()">ورود به حساب کاربری</button>
+    </div>
+</div>
+
+<!-- پاپ‌آپ سبد خرید -->
+<div class="popup" id="cart-popup" style="display: none;">
+    <div class="popup-content">
+        <span class="close-btn" id="close-card-popup" onclick="closeCardPopupButton()">×</span>
+        <h2>سبد خرید شما</h2>
+        <table id="cart-table">
+            <thead>
+            <tr>
+                <th>محصول</th>
+                <th>تعداد</th>
+                <th>قیمت</th>
+                <th>UID</th>
+                <th>سرور</th>
+            </tr>
+            </thead>
+            <tbody id="card-items-container">
+            <!-- اقلام سبد خرید به صورت دینامیک در اینجا نمایش داده می‌شود -->
+            </tbody>
+        </table>
+        <div id="empty-card-message" style="display: none; color: red;">سبد خرید شما خالی است.</div>
+        <div class="checkout-container"></div>
+        <button id="checkout-button">پرداخت</button>
+    </div>
+</div>
+
+
+<!-- کانتینر پاپ‌آپ -->
+<div class="popup" id="login-popup">
+    <div class="popup-content">
+        <span class="close-btn" id="close-popup" onclick="closePopup()">×</span>
+
+        <!-- محتویات فرم‌های ورود و ثبت نام -->
+        <div class="form-section" id="login-form">
+            <h2>ورود به حساب کاربری</h2>
+            <form id="loginForm" method="post">
+                <label for="username">نام کاربری / username :</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">رمز عبور:</label>
+                <input type="password" id="password" name="password" required>
+
+                <div id="error-message" style="color: "></div> <!-- Error message container -->
+
+                <button type="submit" class="btn-primary">ورود</button>
+            </form>
+
+            <div class="additional-info">
+                <a href="#" onclick="showForm('otp')">ورود با رمز یکبار مصرف</a> |
+                <a href="#" onclick="showForm('register')">ثبت‌نام کنید</a> |
+                <a href="#" onclick="showForm('reset')">بازیابی رمز عبور</a>
+            </div>
+        </div>
+
+        <!-- بخش ورود با رمز یکبار مصرف -->
+        <div class="form-section" id="otp-form">
+            <h2>ورود با رمز یکبار مصرف</h2>
+            <form id="otpForm">
+                <label for="email">ایمیل:</label>
+                <input type="email" id="email" name="email" required>
+                <button type="button" id="sendOtpButton" onclick="sendOtp()">ارسال کد</button>
+
+                <!-- این بخش پس از ارسال OTP نمایش داده می‌شود -->
+                <div id="otp-input-section" style="display: none;">
+                    <label for="otp">کد OTP:</label>
+                    <input type="text" id="otp" name="otp" required>
+                    <button type="button" id="verifyOtpButton" onclick="verifyOtp()">تایید</button>
+                    <div id="timer" style="color: red;"></div> <!-- نمایش تایمر -->
+                </div>
+            </form>
+            <div id="otp-status"></div> <!-- محل نمایش پیام‌های وضعیت ارسال یا تایید OTP -->
+        </div>
+
+
+
+
+        <!-- بخش ثبت‌نام -->
+        <div class="form-section" id="register-form" style="display: none;">
+            <h2>ثبت‌نام</h2>
+            <div id="register-message" style="color: green;"></div> <!-- Success message container -->
+            <form id="registerForm" method="post">
+                <label for="new-username">نام کاربری:</label>
+                <input type="text" id="new-username" name="new-username" required>
+
+                <label for="email">ایمیل:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">شماره موبایل:</label> <!-- تغییر شناسه به "phone" -->
+                <input type="text" id="phone" name="phone" required> <!-- اینجا شناسه به "phone" تغییر کرده است -->
+                <button type="button" id="otp_send_button" onclick="triggerOtp()">ارسال کد</button>
+
+                <div id="otp_input_section" style="display: none;">
+                    <label for="user_otp">کد تایید:</label>
+                    <input type="text" id="user_otp" name="user_otp" required>
+                    <button type="button" onclick="validateOtp()">تایید کد</button>
+                </div>
+
+                <label for="new-password">رمز عبور:</label>
+                <input type="password" id="new-password" name="new-password" required>
+
+                <button type="submit" class="btn-primary">ثبت‌نام</button>
+            </form>
+            <div class="additional-info">
+                <a href="#" onclick="showForm('login')">بازگشت به ورود</a>
+            </div>
+        </div>
+
+
+        <!-- بخش بازیابی رمز عبور -->
+        <div class="form-section" id="reset-form" style="display: none;">
+            <h2>بازیابی رمز عبور</h2>
+            <form id="resetForm" method="post">
+                <label for="reset-email">ایمیل:</label>
+                <input type="email" id="reset-email" name="reset-email" required>
+                <button type="submit" class="btn-primary">ارسال لینک بازیابی رمز عبور</button>
+            </form>
+            <div class="additional-info">
+                <a href="#" onclick="showForm('login')">بازگشت به ورود</a>
+            </div>
+        </div>
+
+        <!-- بخش تصویر -->
+        <div class="image-section">
+            <img src="photos/paimon.png" alt="Paimon Image">
+        </div>
+    </div>
+</div>
+
+<!-- پاپ‌آپ سوابق خرید -->
+<div class="popup" id="purchase-history-popup" style="display: none;">
+    <div class="popup-content">
+        <span class="close-btn" id="close-purchase-history-popup" onclick="closePurchaseHistoryPopup()">×</span>
+        <h2>سوابق خرید شما</h2>
+        <div class="purchase-history-container" id="purchase-history-container">
+            <!-- Purchase history will be dynamically loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+    <img src="photos/1.png" alt="Paimon" class="paimon-img">
+    <h1 class="faded-text">Paimonak</h1>
+    <h1>Paimonak چیست؟</h1>
+    <img src="photos/2.png" alt="Paimon" class="paimon2-img">
+    <img src="photos/3.png" alt="Paimon" class="paimon2-img">
+
+    <!-- Section for displaying products -->
+    <h1>محصولات گنشین ایمپکت</h1>
+    <!-- Product List Container -->
+    <div class="product-container" id="product-list">
+        <!-- Product cards will be appended here by JavaScript -->
+    </div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="contact">
+            <h3>راه‌های ارتباطی</h3>
+            <p><img src="photos/6.png" alt="Telegram Icon" class="icon"> تلگرام: @Paimonak</p>
+        </div>
+        <div class="logo">
+            <h2>پایمونک</h2>
+            <img src="photos/7.jpg" alt="Logo" class="footer-logo">
+        </div>
+        <div class="contact">
+            <h3>Contact Us</h3>
+            <p><img src="photos/6.png" alt="Telegram Icon" class="icon"> Telegram: @Paimonak</p>
+        </div>
+    </div>
+    <div class="rights">
+        <p>تمامی حقوق برای مجموعه ویویل محفوظ می‌باشد.</p>
+    </div>
+</footer>
+
+<!-- Link to the external JavaScript file -->
+<script src="script.js"></script>
+</body>
+</html>

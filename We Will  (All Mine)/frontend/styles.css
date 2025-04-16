@@ -1,0 +1,561 @@
+/* General body settings */
+body {
+    font-family: 'Vazir', sans-serif;
+    background-color: #f0e9de;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+    text-align: center;
+}
+
+/* Header styling */
+.header {
+    background-color: #f0e9de;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header .left, .header .right {
+    display: flex;
+    align-items: center;
+    flex-basis: 20%;
+}
+
+.header .center {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.header .right {
+    justify-content: flex-start;
+}
+
+.header .left {
+    justify-content: flex-end;
+}
+
+.header a {
+    text-decoration: none;
+    color: #5f6d7a;
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.header button {
+    background-color: #5f6d7a;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.header img.icon {
+    margin-left: 10px;
+}
+
+.header img {
+    margin-left: 10px;
+}
+
+.header .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #5f6d7a;
+}
+
+/* Main content styling */
+.main {
+    margin-top: 50px;
+}
+
+.main img.paimon-img {
+    width: 1000px;
+    margin-bottom: 20px;
+}
+
+.main h1 {
+    font-size: 32px;
+    color: #4a4a4a;
+}
+
+.main .faded-text {
+    font-size: 28px;
+    color: rgba(95, 109, 122, 0.3);
+    margin-bottom: -10px;
+}
+
+.main p {
+    font-size: 20px;
+    color: #4a4a4a;
+    margin: 10px 0;
+}
+
+.main img.paimon2-img {
+    width: 1000px;
+    margin-bottom: 20px;
+}
+/* Footer styling */
+footer {
+    background-color: #f0e9de;
+    padding: 40px 0;
+    margin-top: 50px;
+    text-align: center;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.footer-content .contact {
+    flex: 1;
+    text-align: left;
+    padding-left: 210px;
+}
+
+.footer-content .logo {
+    flex: 1;
+    text-align: center;
+    margin-top: -30px;
+}
+
+.footer-content .logo h2 {
+    text-transform: uppercase;
+    font-size: 25px;
+    color: #5f6d7a;
+    margin-top: 5px;
+}
+
+.footer-content .logo img.footer-logo {
+    width: 100px;
+    height: auto;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+footer .icon {
+    width: 20px;
+    height: auto;
+    margin-right: 10px;
+}
+
+.rights {
+    font-size: 18px;
+    color: #5f6d7a;
+    margin-top: 30px;
+}
+
+/* پاپ‌آپ */
+.popup {
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* نیمه‌شفاف */
+}
+
+
+.popup-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    width: 800px; /* افزایش عرض برای تناسب بیشتر */
+    max-width: 90%;
+    position: relative;
+}
+
+.form-section, .image-section {
+    flex: 1;
+    padding: 20px;
+}
+
+.image-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-section img {
+    width: 200px;
+    height: auto;
+    border-radius: 15px;
+}
+
+.form-section {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-section h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #4a4a4a;
+}
+
+.form-section form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-section label {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #5f6d7a;
+}
+
+.form-section input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.form-section input:focus {
+    outline: none;
+    border-color: #aaa;
+}
+
+.form-section button {
+    padding: 12px;
+    background-color: #007BFF;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.form-section button:hover {
+    background-color: #0056b3;
+}
+
+/* خط جداکننده میان فرم و تصویر */
+.separator {
+    width: 1px;
+    background-color: #e0e0e0;
+    margin: 0 20px;
+}
+
+/* متن و پیوندهای زیر فرم */
+.form-section .additional-info {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #999;
+}
+
+.form-section .additional-info a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.popup-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 50%;
+    position: relative;
+    z-index: 1000;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+#error-message {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* No purchase message styling */
+.no-purchase-message {
+    text-align: center;        /* Center the text */
+    padding: 20px;            /* Inner padding */
+    font-size: 16px;          /* Font size */
+    color: #666;              /* Text color */
+    background-color: #fff5f5; /* Light red background for alert */
+    border: 1px solid #f5c6cb; /* Red border */
+    border-radius: 8px;       /* Rounded corners */
+    margin: 20px 0;           /* Vertical margin for spacing */
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .purchase-history-container {
+        padding: 10px;
+    }
+
+    .purchase-history-table th,
+    .purchase-history-table td {
+        font-size: 12px;
+    }
+}
+
+.card img {
+    max-width: 100%; /* Ensure images fit within the card */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.card h3 {
+    font-size: 1.2em; /* Increase font size for product name */
+    margin: 10px 0; /* Space above and below the product name */
+}
+
+.card p {
+    margin: 5px 0; /* Space above and below paragraphs */
+}
+
+/* Optional: Hide scrollbar for a cleaner look */
+.product-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in WebKit browsers */
+}
+
+.product-container {
+    -ms-overflow-style: none; /* Hide scrollbar in IE and Edge */
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
+}
+/* نویگیشن بار */
+.navigation {
+    background-color: #5f6d7a;
+    padding: 10px;
+}
+
+.navigation ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.navigation ul li {
+    margin: 0 15px;
+}
+
+.navigation ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* کارت‌های محصولات در مرکز */
+.product-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px 0;
+}
+
+.card {
+    margin: 15px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 200px;
+    padding: 20px;
+    text-align: center;
+}
+/* Cart Table Styling */
+#cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#cart-table th, #cart-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+#cart-table th {
+    background-color: #f9f9f9;
+    color: #333;
+    font-weight: bold;
+}
+
+#cart-table td {
+    background-color: #fff;
+    color: #333;
+}
+
+/* Button styling inside the cart */
+.decrease-btn, .increase-btn {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    margin: 0 5px;
+    transition: background-color 0.3s;
+}
+
+.decrease-btn:hover, .increase-btn:hover {
+    background-color: #ddd;
+}
+
+/* Adjust input field for quantity */
+.quantity {
+    padding: 5px;
+    width: 40px;
+    text-align: center;
+}
+
+/* Total price and action button styling */
+#total-price {
+    font-size: 18px;
+    color: #333;
+    margin-top: 10px;
+    text-align: center;
+}
+
+#checkout-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+#checkout-button:hover {
+    background-color: #0056b3;
+}
+
+/* Error message */
+#error-message {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+}
+/* Checkout button container styling */
+#checkout-container {
+    text-align: center;
+    margin-top: 20px; /* فاصله بین جدول و دکمه پرداخت */
+}
+
+/* Total price and checkout button styling */
+#total-price {
+    font-size: 18px;
+    color: #333;
+    margin-right: 15px;
+}
+
+#checkout-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s;
+    margin-top: auto;
+}
+
+#checkout-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive styling */
+@media (max-width: 600px) {
+    #checkout-button {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+
+    #total-price {
+        font-size: 14px;
+    }
+}
+/* Button styling inside the cart */
+.decrease-btn, .increase-btn {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    margin: 0 5px;
+    transition: background-color 0.3s;
+}
+
+.decrease-btn:hover, .increase-btn:hover {
+    background-color: #ddd;
+}
+
+/* Adjust input field for quantity */
+.quantity {
+    padding: 5px;
+    width: 40px;
+    text-align: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.purchase-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.purchase-history-table th, .purchase-history-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+.purchase-history-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+.purchase-history-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#otp-form {
+    display: none;
+}

@@ -1,0 +1,103 @@
+-- ساخت جدول کاربران
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(15),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+ );
+
+-- ساخت جدول محصولات
+CREATE TABLE products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    stock INT NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    server ENUM('North America', 'Europe', 'Asia', 'TW etc') NOT NULL,  -- اضافه شدن ستون سرور با مقادیر صحیح
+    image_url VARCHAR(255),
+    uid INT NOT NULL UNIQUE
+);
+
+-- ساخت جدول سبد خرید
+CREATE TABLE cart (
+    cart_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1 CHECK (quantity > 0),
+    server ENUM('North America', 'Europe', 'Asia', 'TW etc') NOT NULL,  -- اضافه شدن ستون سرور با مقادیر صحیح
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
+);
+
+-- ساخت جدول حسابداری
+CREATE TABLE accounting (
+    transaction_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    payment_method VARCHAR(50),
+    status VARCHAR(20),
+    transaction_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+-- ساخت جدول تاریخچه خرید
+CREATE TABLE purchase_history (
+    purchase_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    product_id INT,
+    quantity INT NOT NULL,
+    total_price DECIMAL(10, 2) NOT NULL,
+    server ENUM('North America', 'Europe', 'Asia', 'TW etc') NOT NULL,  -- اضافه شدن ستون سرور با مقادیر صحیح
+    payment_method VARCHAR(50),
+    discount DECIMAL(10, 2) DEFAULT 0.00,
+    status VARCHAR(20) DEFAULT 'completed',
+    transaction_id INT,
+    purchased_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+    -- FOREIGN KEY (transaction_id) REFERENCES accounting(transaction_id) -- در صورت نیاز فعال کنید
+);
+
+-- ایجاد ایندکس‌ها برای بهبود سرعت کوئری‌ها
+CREATE INDEX idx_user_id ON purchase_history(user_id);
+CREATE INDEX idx_product_id ON purchase_history(product_id);
+
+-- ساخت جدول ورود و خروج کاربران
+CREATE TABLE login_logs (
+    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    login_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    logout_time TIMESTAMP,
+    ip_address VARCHAR(45),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+CREATE TABLE password_resets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE otp_codes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    email VARCHAR(255) NOT NULL, -- ایمیل کاربر
+    otp_code VARCHAR(6), -- کد OTP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- زمان ایجاد کد
+    expires_at TIMESTAMP, -- زمان انقضا
+    usage_limit INT DEFAULT 1, -- تعداد دفعات استفاده
+    FOREIGN KEY (user_id) REFERENCES users(user_id) -- تعریف کلید خارجی
+);
+
+CREATE TABLE phone_verifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    phone_number VARCHAR(15) NOT NULL,
+    otp_code VARCHAR(6) NOT NULL,
+    is_verified TINYINT(1) DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP NOT NULL
+);
