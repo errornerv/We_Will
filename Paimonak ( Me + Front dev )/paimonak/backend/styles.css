@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Vazir', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #6ebff3, #ffffff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.reset-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px;
+}
+
+.reset-box h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.icon-container {
+    font-size: 50px;
+    color: #6ebff3;
+    margin-bottom: 20px;
+}
+
+.reset-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.reset-box label {
+    text-align: right;
+    font-size: 14px;
+    color: #666;
+}
+
+.reset-box input {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+}
+
+.reset-box input:focus {
+    border-color: #6ebff3;
+}
+
+.btn-reset {
+    background-color: #6ebff3;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-reset:hover {
+    background-color: #5aade2;
+}
+
+.success-message {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e7f6e7;
+    border: 1px solid #8bd88b;
+    border-radius: 10px;
+    color: #4caf50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.success-message i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.hidden {
+    display: none;
+}
